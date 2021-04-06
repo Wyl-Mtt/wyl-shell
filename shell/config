@@ -1,0 +1,13 @@
+#!/bin/bash
+export path=/studio_jdk8test/app
+export servicesname=policymonitor
+export images=registry.sensetime.com/sensestudio-base-img/openjdk_normal:8u252
+export hostname=k8s-1
+export commands="sh /springconfig/preflightcheck.sh && /usr/local/openjdk-8/bin/java -Xms256m -Xmx4096m -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=18194 -jar -Djava.security.auth.login.config=/springconfig/.client-jaas -Djasypt.encryptor.password=youtellme -Dspring.profiles.include=swagger -Duser.timezone=$TIMEZONE /symphonyadapter/symphonyAdapter.jar"
+export volumes="- ./:/$servicesname
+      - ../../utility_files:/files
+      - ../../executive:/executive
+      - ../../images:/images
+      - ../../logs:/studio/logs
+      - ../../springconfig:/springconfig
+      - /etc/localtime:/etc/localtime"
